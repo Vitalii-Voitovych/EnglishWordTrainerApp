@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  
+  <PropertyGroup>
+    <Version>1.0.0</Version>
+    <Authors>Vitalii Voitovych</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="dictionary.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="6.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="dictionary.png" />
+  </ItemGroup>
+
+</Project>
