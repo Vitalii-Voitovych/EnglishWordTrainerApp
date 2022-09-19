@@ -95,20 +95,20 @@
             </Grid>
         </TabItem>
         <TabItem Header="Словник">
-            <StackPanel Margin="10">
-                <DataGrid ItemsSource="{Binding Vocabulary}"
-                          AutoGenerateColumns="False"
-                          FontSize="14">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Слово" 
+            <DataGrid ItemsSource="{Binding Vocabulary}"
+                      AutoGenerateColumns="False"
+                      FontSize="14"
+                      VerticalScrollBarVisibility="Visible"
+                      Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Слово" 
                                             Binding="{Binding EnglishWord}"
                                             Width="1*"/>
-                        <DataGridTextColumn Header="Переклад" 
+                    <DataGridTextColumn Header="Переклад" 
                                             Binding="{Binding TranstaleWord}"
                                             Width="1*"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </StackPanel>
+                </DataGrid.Columns>
+            </DataGrid>
         </TabItem>
     </TabControl>
 </Window>
