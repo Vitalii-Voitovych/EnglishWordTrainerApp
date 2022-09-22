@@ -72,7 +72,7 @@ namespace EnglishWordTrainerApp.ViewModels
             StartCommand = new RelayCommand(() =>
             {
                 if (Count == 0) return;
-                VocabularyItem = Vocabulary[new Random().Next(0, Vocabulary.Count)];
+                VocabularyItem = Vocabulary[new Random(DateTime.Now.Millisecond).Next(0, Vocabulary.Count)];
                 isStart = true;
                 CorrectAnswer = IncorrectAnswer = 0;
             }, () => !isStart);
@@ -85,7 +85,7 @@ namespace EnglishWordTrainerApp.ViewModels
             OkCommand = new RelayCommand<TextBox>(textBox =>
             {
                 CheckAnswer(textBox);
-                VocabularyItem = Vocabulary[new Random().Next(0, Vocabulary.Count)];
+                VocabularyItem = Vocabulary[new Random(DateTime.Now.Millisecond).Next(0, Vocabulary.Count)];
                 counter++;
                 if (Count == counter)
                 {

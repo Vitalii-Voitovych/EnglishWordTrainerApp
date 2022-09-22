@@ -70,7 +70,7 @@
                             Grid.ColumnSpan="2"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
-                            Width="175">
+                            Width="255">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Слово: "
                                    FontSize="18"
