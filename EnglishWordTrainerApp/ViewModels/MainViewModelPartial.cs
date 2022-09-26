@@ -3,7 +3,6 @@ using System.Windows;
 using System;
 using EnglishWordTrainerApp.Services;
 using System.ComponentModel;
-using EnglishWordTrainerApp.Models;
 
 namespace EnglishWordTrainerApp.ViewModels
 {
@@ -12,15 +11,10 @@ namespace EnglishWordTrainerApp.ViewModels
         private readonly string path = $@"C:\Users\{Environment.UserName}\Documents\{Environment.UserName}-Vocabulary.json";
         private bool isStart = false;
         private int counter;
-
-        private int count;
-        private VocabularyItem? vocabularyItem;
-        private int correctAnswer;
-        private int incorrectAnswer;
         
         private void CheckAnswer(TextBox textBox)
         {
-            if (string.Equals(VocabularyItem?.TranstaleWord, textBox.Text, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(VocabularyItem?.TranslateWord, textBox.Text, StringComparison.OrdinalIgnoreCase))
             {
                 CorrectAnswer++;
             }
@@ -30,7 +24,7 @@ namespace EnglishWordTrainerApp.ViewModels
             }
         }
 
-        private void End()
+        private void EndAnswer()
         {
             isStart = false;
             Count = counter = 0;

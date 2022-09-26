@@ -1,27 +1,13 @@
-﻿namespace EnglishWordTrainerApp.Models
-{
-    public class VocabularyItem : ObservableObject
-    {
-        private string englishWord = "";
-        public string EnglishWord
-        {
-            get => englishWord;
-            set
-            {
-                englishWord = value;
-                OnPropertyChanged();
-            }
-        }
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
+namespace EnglishWordTrainerApp.Models
+{
+    public partial class VocabularyItem : ObservableObject
+    {
+        [ObservableProperty]
+        private string englishWord = "";
+
+        [ObservableProperty]
         private string translateWord = "";
-        public string TranstaleWord
-        {
-            get => translateWord;
-            set
-            {
-                translateWord = value;
-                OnPropertyChanged();
-            }
-        }
     }
 }

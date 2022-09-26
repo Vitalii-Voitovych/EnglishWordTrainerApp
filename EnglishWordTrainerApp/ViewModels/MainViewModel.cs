@@ -1,4 +1,5 @@
-﻿using EnglishWordTrainerApp.Commands;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using EnglishWordTrainerApp.Models;
 using EnglishWordTrainerApp.Services;
 using System;
@@ -9,91 +10,71 @@ namespace EnglishWordTrainerApp.ViewModels
 {
     public partial class MainViewModel : ObservableObject
     {
+
         public BindingList<VocabularyItem> Vocabulary { get; }
 
-        public int Count
+        [ObservableProperty]
+        private int count;
+
+        [ObservableProperty]
+        private VocabularyItem? vocabularyItem;
+
+        [ObservableProperty]
+        private int correctAnswer;
+
+        [ObservableProperty]
+        private int incorrectAnswer;
+
+        [RelayCommand]
+        void UpCount()
         {
-            get => count;
-            set
-            {
-                count = value;
-                OnPropertyChanged();
-            }
+            if (isStart) return;
+            Count++;
         }
 
-        public VocabularyItem? VocabularyItem
+        [RelayCommand]
+        void DownCount()
         {
-            get => vocabularyItem;
-            set
-            {
-                vocabularyItem = value;
-                OnPropertyChanged();
-            }
+            if (isStart) return;
+            if (Count > 0)
+                Count--;
         }
-        public int CorrectAnswer
+        [RelayCommand]
+        void Start()
         {
-            get => correctAnswer;
-            set
-            {
-                correctAnswer = value;
-                OnPropertyChanged();
-            }
+            if (Count == 0) return;
+            if (isStart) return;
+            VocabularyItem = Vocabulary[new Random(DateTime.Now.Millisecond).Next(0, Vocabulary.Count)];
+            isStart = true;
+            CorrectAnswer = IncorrectAnswer = 0;
         }
 
-        public int IncorrectAnswer
+        [RelayCommand]
+        void End(TextBox textBox)
         {
-            get => incorrectAnswer;
-            set
-            {
-                incorrectAnswer = value;
-                OnPropertyChanged();
-            }
+            if (!isStart) return;
+            EndAnswer();
+            textBox.Clear();
         }
 
-        public RelayCommand UpCountCommand { get; }
-        public RelayCommand DownCountCommand { get; }
-        public RelayCommand StartCommand { get; }
-        public RelayCommand<TextBox> EndCommand { get; }
-        public RelayCommand<TextBox> OkCommand { get; }
-
+        [RelayCommand]
+        void Ok(TextBox textBox)
+        {
+            if (!isStart) return;
+            CheckAnswer(textBox);
+            VocabularyItem = Vocabulary[new Random(DateTime.Now.Millisecond).Next(0, Vocabulary.Count)];
+            counter++;
+            if (Count == counter)
+            {
+                EndAnswer();
+            }
+            textBox.Clear();
+        }
 
         public MainViewModel()
         {
             Vocabulary = VocabularyDataSaver.Load(path);
             Vocabulary.ListChanged += Vocabulary_ListChanged;
-
-            UpCountCommand = new RelayCommand(() => Count++, () => !isStart);
-            DownCountCommand = new RelayCommand(() =>
-            {
-                if (Count > 0)
-                    Count--;
-            }, () => !isStart);
-
-            StartCommand = new RelayCommand(() =>
-            {
-                if (Count == 0) return;
-                VocabularyItem = Vocabulary[new Random(DateTime.Now.Millisecond).Next(0, Vocabulary.Count)];
-                isStart = true;
-                CorrectAnswer = IncorrectAnswer = 0;
-            }, () => !isStart);
-            EndCommand = new RelayCommand<TextBox>(textBox =>
-            {
-                End();
-                textBox.Clear();
-            }, (textBox) => isStart);
-
-            OkCommand = new RelayCommand<TextBox>(textBox =>
-            {
-                CheckAnswer(textBox);
-                VocabularyItem = Vocabulary[new Random(DateTime.Now.Millisecond).Next(0, Vocabulary.Count)];
-                counter++;
-                if (Count == counter)
-                {
-                    End();
-                }
-                textBox.Clear();
-            }, (textBox) => isStart);
-
         }
     }
 }
