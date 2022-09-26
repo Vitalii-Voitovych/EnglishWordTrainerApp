@@ -26,21 +26,21 @@ namespace EnglishWordTrainerApp.ViewModels
         private int incorrectAnswer;
 
         [RelayCommand]
-        void UpCount()
+        private void UpCount()
         {
             if (isStart) return;
             Count++;
         }
 
         [RelayCommand]
-        void DownCount()
+        private void DownCount()
         {
             if (isStart) return;
             if (Count > 0)
                 Count--;
         }
         [RelayCommand]
-        void Start()
+        private void Start()
         {
             if (Count == 0) return;
             if (isStart) return;
@@ -50,7 +50,7 @@ namespace EnglishWordTrainerApp.ViewModels
         }
 
         [RelayCommand]
-        void End(TextBox textBox)
+        private void End(TextBox textBox)
         {
             if (!isStart) return;
             EndAnswer();
@@ -58,7 +58,7 @@ namespace EnglishWordTrainerApp.ViewModels
         }
 
         [RelayCommand]
-        void Ok(TextBox textBox)
+        private void Ok(TextBox textBox)
         {
             if (!isStart) return;
             CheckAnswer(textBox);
